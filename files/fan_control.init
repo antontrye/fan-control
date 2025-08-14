@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+
+name="fan_control"
+description="Temperature-based fan control with logging"
+command="/usr/local/bin/fan_control.sh"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+    need net
+    after networking
+}
+
+start_pre() {
+    # Ensure log directory exists
+    checkpath --directory --owner root:root --mode 0755 /var/log
+    # Log file will be created by the script itself
+}
+
+stop_post() {
+    einfo "Fan control stopped. View logs with: tail -f /var/log/fan_control.log"
+}

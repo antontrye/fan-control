@@ -1,0 +1,27 @@
+# Sensitive configuration files
+.env
+*.env
+config.sh
+secrets.conf
+ipmi.conf
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Log files
+*.log
+*.err
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# Alpine rootfs tarball (can be downloaded separately)
+alpine-minirootfs-*.tar.gz
+
+# Local configuration overrides
+local.conf
+*.local

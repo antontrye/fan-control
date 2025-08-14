@@ -1,0 +1,31 @@
+# Pack script itself
+pack.sh
+
+# Alpine rootfs archives
+alpine-minirootfs-*.tar.gz
+*.tar.gz
+
+# Extracted directories
+alpine-minirootfs-*/
+rootfs/
+minirootfs/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*~
+.DS_Store
+
+# Environment files with secrets
+.env
+
+# IDE directories
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Temporary ipmi config files
+/tmp/ipmi.conf.*
