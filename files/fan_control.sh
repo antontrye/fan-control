@@ -110,7 +110,7 @@ get_max_temp() {
     
     while IFS= read -r line; do
         if echo "$line" | grep -q '+.*°C'; then
-            temp=$(echo "$line" | sed -n 's/.*+\([0-9]*\)\.[0-9]*°C.*/\1/p')
+            temp=$(echo "$line" | sed -n 's/^[^:]*:[^+]*+\([0-9]*\)\.[0-9]*°C.*/\1/p')
             if [ -n "$temp" ]; then
                 sensor_count=$((sensor_count + 1))
                 sensor_name=$(echo "$line" | cut -d':' -f1 | sed 's/^[[:space:]]*//')
