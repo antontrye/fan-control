@@ -5,9 +5,18 @@
 
 set -euo pipefail
 
-PROJECT_NAME="fan_control"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-OUTPUT_FILE="${PROJECT_NAME}_${TIMESTAMP}.tar.gz"
+PROJECT_NAME="fan-control"
+
+# Determine version from git
+if git describe --tags --exact-match HEAD 2>/dev/null; then
+    # We're on a tag - use tag name
+    VERSION=$(git describe --tags --exact-match HEAD)
+else
+    # Use short commit hash
+    VERSION=$(git rev-parse --short HEAD)
+fi
+
+OUTPUT_FILE="${PROJECT_NAME}-${VERSION}.tar.gz"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -22,10 +31,12 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: $0 [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  -o, --output NAME    Custom output filename (default: ${PROJECT_NAME}_TIMESTAMP.tar.gz)"
+            echo "  -o, --output NAME    Custom output filename (default: ${PROJECT_NAME}-{VERSION}.tar.gz)"
             echo "  -h, --help          Show this help message"
             echo ""
             echo "Creates tarball from git-tracked files, excluding pack.sh"
+            echo "Version is determined from git tags or commit hash"
+            echo "Default output: ${OUTPUT_FILE}"
             exit 0
             ;;
         *)
